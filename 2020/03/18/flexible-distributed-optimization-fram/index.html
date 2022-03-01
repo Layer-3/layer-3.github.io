@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>与主机上其他任务共享资源的分布式优化框架 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Table of Contents   1. 介绍 1.1 分布式优化 1.2 什么是次梯度 subgrdient 1.3 符号规定：   2. 模型与算法 2.1 问题模型 2.2 算法   3. 收敛结果         1. 介绍 {1-dot-介绍}题目名为：A Flexible Distributed Optimization Framework for Service of Co">
+<meta property="og:type" content="article">
+<meta property="og:title" content="与主机上其他任务共享资源的分布式优化框架">
+<meta property="og:url" content="http://example.com/2020/03/18/flexible-distributed-optimization-fram/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Table of Contents   1. 介绍 1.1 分布式优化 1.2 什么是次梯度 subgrdient 1.3 符号规定：   2. 模型与算法 2.1 问题模型 2.2 算法   3. 收敛结果         1. 介绍 {1-dot-介绍}题目名为：A Flexible Distributed Optimization Framework for Service of Co">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-03-17T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-03-01T01:31:42.189Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Infocom2019">
+<meta property="article:tag" content="Computer_Network">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-flexible-distributed-optimization-fram" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/03/18/flexible-distributed-optimization-fram/" class="article-date">
+  <time class="dt-published" datetime="2020-03-17T16:00:00.000Z" itemprop="datePublished">2020-03-18</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Study/">Study</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      与主机上其他任务共享资源的分布式优化框架
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <div class="ox-hugo-toc toc">
+<div></div>
+
+<div class="heading">Table of Contents</div>
+
+<ul>
+<li><a href="#1-dot-%E4%BB%8B%E7%BB%8D">1. 介绍</a><ul>
+<li><a href="#1-dot-1-%E5%88%86%E5%B8%83%E5%BC%8F%E4%BC%98%E5%8C%96">1.1 分布式优化</a></li>
+<li><a href="#1-dot-2-%E4%BB%80%E4%B9%88%E6%98%AF%E6%AC%A1%E6%A2%AF%E5%BA%A6-subgrdient">1.2 什么是次梯度 <strong>subgrdient</strong></a></li>
+<li><a href="#1-dot-3-%E7%AC%A6%E5%8F%B7%E8%A7%84%E5%AE%9A">1.3 符号规定：</a></li>
+</ul>
+</li>
+<li><a href="#2-dot-%E6%A8%A1%E5%9E%8B%E4%B8%8E%E7%AE%97%E6%B3%95">2. 模型与算法</a><ul>
+<li><a href="#2-dot-1-%E9%97%AE%E9%A2%98%E6%A8%A1%E5%9E%8B">2.1 问题模型</a></li>
+<li><a href="#2-dot-2-%E7%AE%97%E6%B3%95">2.2 算法</a></li>
+</ul>
+</li>
+<li><a href="#3-dot-%E6%94%B6%E6%95%9B%E7%BB%93%E6%9E%9C">3. 收敛结果</a><ul>
+<li><a href="#"></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<!--endtoc-->
+
+
+<h2 id="1-介绍-1-dot-介绍"><a href="#1-介绍-1-dot-介绍" class="headerlink" title="1. 介绍 {1-dot-介绍}"></a>1. 介绍 {1-dot-介绍}</h2><p>题目名为：A Flexible Distributed Optimization Framework for Service of Concurrent Tasks in<br>Processing Networks</p>
+<h3 id="1-1-分布式优化-1-dot-1-分布式优化"><a href="#1-1-分布式优化-1-dot-1-分布式优化" class="headerlink" title="1.1 分布式优化 {1-dot-1-分布式优化}"></a>1.1 分布式优化 {1-dot-1-分布式优化}</h3><p>让一群没有服务器指挥的节点，在仅和邻居通讯（类似于 P2P）的情况下达到整体最优解。需要分布式优化的原因自然是因为 CS 架构的优化模型存在缺点，比如单点故障等原因，参考知乎<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/59260302">刘家耿的回答</a>，给出一个简单的形式化的表达式：<br>\[<br>  \min_{x_i,\cdots,x_n} \sum_{i&#x3D;1}^n f_i(x_i)<br>\]</p>
+<p>上面的公示与常规的优化公示相对应，CS 架构的的优化公示中的 x 是全局统一的，存储在中心 server 上，而分布式优化的 x 则存储在每一个 client 上，这里再借用下上面的回答中的一个流程进一步的阐述分布式优化：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">for each node i, simultaneously</span><br><span class="line">*repeat*</span><br><span class="line">    do gradient updates with own data;</span><br><span class="line">    regularly exchange some information with neighbors;</span><br><span class="line">    combine information according to some policy;</span><br><span class="line">*until* reach consensus and optimaticaly</span><br></pre></td></tr></table></figure>
+
+<p>文章里描述的是，可以为机器学习和信号处理提供使用内部网络连接的处理通过间歇性通信来完成全局最优目标的方法。目前的很多分布式化算法假设所有的处理器都存储了相关数据，但实际上是很多全局最优任务是运行在共享资源的主机上的，所以需要提出一种能够灵活的和其他任务共享<strong>资源</strong>的分布式优化算法。</p>
+<p>Here is a summary of classic and novel <strong>Distributed Optimization</strong></p>
+<blockquote>
+<p>One of the pioneering works on distributed optimization was Tsitsiklis et al.’s<br>work [22]. Since then, several types of methods have been proposed in this area,<br>such as distributed subgradient descent (DSD) [8], [14], distributed dual<br>averaging [4], [21], Alternating Direction Method of Multipliers (ADMM) [9],<br>[18], Nesterov’s method [15], [17] and second-order algorithm [10], [23], with<br>different performances and restrictions. Among these types, DSD is the most<br>important algorithm because it is easily implemented in a distributed way (ADMM<br>needs sequential variable updates and second order methods need costly<br>distributed Hessian calculation), and the basis of many further developed<br>algorithms. For example, by adding history gradient information to DSD, the<br>methods in [13] and [16] can achieve a linear convergence rate for the sum of<br>strongly convex and smooth functions with a constant stepsize. Nesterov’s method<br>can also be considered as a variant of the gradient method. So in this paper, we<br>will focus on gradient-based algorithms.</p>
+</blockquote>
+<p>文章提出一套灵活的分布式次梯度(subgradient)算法，允许处理器通过基于概率地在多个正在进行的任务之间切换，从而同时处理多个正在进行的任务。</p>
+<h3 id="1-2-什么是次梯度-subgrdient-1-dot-2-什么是次梯度-subgrdient"><a href="#1-2-什么是次梯度-subgrdient-1-dot-2-什么是次梯度-subgrdient" class="headerlink" title="1.2 什么是次梯度 subgrdient {1-dot-2-什么是次梯度-subgrdient}"></a>1.2 什么是次梯度 <strong>subgrdient</strong> {1-dot-2-什么是次梯度-subgrdient}</h3><blockquote>
+<p>当函数不可导时，无法通过常规的方法求梯度，也就无法使用梯度下降发来进行实现优化算法，因此针对存在不可导（不光滑）的函数提出其次梯度的概念，其标准定义为：</p>
+<p>g 是函数 f 在 x 点的次梯度，当<br>\[<br>    f(y) \geq f(x) + g^T(y-x), \forall y<br>\]</p>
+<p>上面的 g 是一个可能的次梯度，函数在某一点的次梯度是一个集合被记为&amp;part; f(x)，对于一个凸函数而言，其 &amp;part; f(x) 非空。所以可以使用类似于经典梯度下降的方法使用次梯度对不可导函数进行优化。</p>
+</blockquote>
+<h3 id="1-3-符号规定：-1-dot-3-符号规定"><a href="#1-3-符号规定：-1-dot-3-符号规定" class="headerlink" title="1.3 符号规定： {1-dot-3-符号规定}"></a>1.3 符号规定： {1-dot-3-符号规定}</h3><table>
+<thead>
+<tr>
+<th>符号</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>\(n\)</td>
+<td><strong>number</strong> of processors</td>
+</tr>
+<tr>
+<td>\(x_i^k, y_i^k\)</td>
+<td><strong>value</strong> of Processor i in iteration k</td>
+</tr>
+<tr>
+<td>\(a_{ij}^k\)</td>
+<td><strong>weight</strong> of processor i put on value sent from j</td>
+</tr>
+<tr>
+<td>\(\partial f(x)\)</td>
+<td><strong>set</strong> of <strong>subgradient</strong> of function at x</td>
+</tr>
+<tr>
+<td>\(\nabla f(x)\)</td>
+<td><strong>gradient</strong> of f at x</td>
+</tr>
+<tr>
+<td>\(\Vert \cdot \Vert_p\)</td>
+<td>\(l_p - norm\) for vectors</td>
+</tr>
+<tr>
+<td>\(\pi \{x\}\)</td>
+<td>\(\pi \{x\} &#x3D; \arg \min \limits_{y \in \chi} \Vert y-x \Vert_2^2\)</td>
+</tr>
+</tbody></table>
+<h2 id="2-模型与算法-2-dot-模型与算法"><a href="#2-模型与算法-2-dot-模型与算法" class="headerlink" title="2. 模型与算法 {2-dot-模型与算法}"></a>2. 模型与算法 {2-dot-模型与算法}</h2><h3 id="2-1-问题模型-2-dot-1-问题模型"><a href="#2-1-问题模型-2-dot-1-问题模型" class="headerlink" title="2.1 问题模型 {2-dot-1-问题模型}"></a>2.1 问题模型 {2-dot-1-问题模型}</h3><p>考虑优化的问题与上面提到的分布式优化问题相似，这里再抄写一遍：</p>
+<p>\[<br>    \min_\limits{m \in \chi} f(x) &#x3D; \frac{1}{n} \sum_{i&#x3D;1}^n f_i(x)<br>\]</p>
+<p>其中 \(f_i(x)\) 对在 \(\chi\) 上的所以 i 都是凸的。网络是一个静态的无向图 \(G &#x3D; (V,<br>\xi)\) ，每个处理器 \(process_i\) 仅能访问自己本地函数 \(f_i\) 并计算起次梯度，同时<br>\(Process_i\) 可以与邻居通信自己的值，邻居被记为 \(N(i)\) 。</p>
+<p>计算次梯度需要的花费记为 1，在 1 条链路上两个处理器的产生的通信开销记为 \(\tau\)</p>
+<h3 id="2-2-算法-2-dot-2-算法"><a href="#2-2-算法-2-dot-2-算法" class="headerlink" title="2.2 算法 {2-dot-2-算法}"></a>2.2 算法 {2-dot-2-算法}</h3><p>对于一个有监督的分布式学习可以将每个处理器上的优化问题刻画为这个函数：<br>\(f_i(\theta) &#x3D; l (h(x_i; \theta), y_i)\) ，其中 h 是预测函数，l 是损失函数， \(x_i,<br>y_i\) 是处理器 i 本地存储的数据集中的数据， &amp;theta; 是希望全局优化的参数，下面给出三个假设：</p>
+<ul>
+<li>\(f_i(x)\) 的次梯度是有界的；字面意思；</li>
+<li>\(f_i(x)\) 是 l 光滑的，(<em>Lipschitz smooth 利普希茨连续用来描述函数的平滑程度的，强调的是函数的梯度不会太突兀 L 是光滑程度，具体来说就是 x,y 两点的梯度差&lt;&#x3D; L|x-y|.</em>)</li>
+<li>\(f_i(x)\) 是 &amp;mu; -strongly convex。</li>
+</ul>
+<p>分布式优化的目标是用做少的通信开销使得每个处理器上的 \(x_i^k\) 收敛到(1)式的最优解。这里的一个重要想法就是能否一次今更新所有处理器的一个子集上的值，该子集外的处理器做其他任务并保持子集的值不变，能否也可以达到全局优化的目标。文章介绍了一个基于概率的部分更新的次梯度算法(PUSD)的算法如下：</p>
+<p>![](figure src&#x3D;”&#x2F;ox-hugo&#x2F;2020-03-18_11-42-07_screen-shoot.png” class&#x3D;”foo” width&#x3D;”500”)</p>
+<p>其第 6-7 行是与其他主机交换信息的过程，第 8-14 行是根据概率选择是否计算次梯度以实现全局优化。</p>
+<p>上面算法使用了概率划分的方法，实际上也有一些其他的硬划分模式，比如为不同的任务分配部分处理器数，但是对于有些时候数据因为隐私或者技术的原因不方便与其他处理器共享。上面的算法能够很好的估计出全局最优情况，但是在网络处理器上使用硬划分就很难做到（_这里留个问题，不是很理解为什么不能硬划分很难做到全局优化_）。</p>
+<h2 id="3-收敛结果-3-dot-收敛结果"><a href="#3-收敛结果-3-dot-收敛结果" class="headerlink" title="3. 收敛结果 {3-dot-收敛结果}"></a>3. 收敛结果 {3-dot-收敛结果}</h2><h3 id=""><a href="#" class="headerlink" title="{}"></a>{}</h3>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/03/18/flexible-distributed-optimization-fram/" data-id="cl07gfq6c0001gj38ef2g4gcn" data-title="与主机上其他任务共享资源的分布式优化框架" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Computer-Network/" rel="tag">Computer_Network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Infocom2019/" rel="tag">Infocom2019</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/03/18/ad_computer_network/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          高级计算机网络学习笔记
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Idea/">Idea</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Learn/">Learn</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Study/">Study</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Computer-Network/" rel="tag">Computer_Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/English/" rel="tag">English</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Infocom2019/" rel="tag">Infocom2019</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KnowledgeGraph/" rel="tag">KnowledgeGraph</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Knowledge-Graph/" rel="tag">Knowledge_Graph</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/" rel="tag">NLP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SDN/" rel="tag">SDN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nothing/" rel="tag">nothing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%83%A1%E5%9B%BE%E9%81%93%E7%90%86/" rel="tag">胡图道理</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Computer-Network/" style="font-size: 10px;">Computer_Network</a> <a href="/tags/English/" style="font-size: 10px;">English</a> <a href="/tags/Infocom2019/" style="font-size: 10px;">Infocom2019</a> <a href="/tags/KnowledgeGraph/" style="font-size: 10px;">KnowledgeGraph</a> <a href="/tags/Knowledge-Graph/" style="font-size: 10px;">Knowledge_Graph</a> <a href="/tags/NLP/" style="font-size: 10px;">NLP</a> <a href="/tags/Network/" style="font-size: 16.67px;">Network</a> <a href="/tags/SDN/" style="font-size: 13.33px;">SDN</a> <a href="/tags/nothing/" style="font-size: 10px;">nothing</a> <a href="/tags/%E8%83%A1%E5%9B%BE%E9%81%93%E7%90%86/" style="font-size: 20px;">胡图道理</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/12/19/readed-books-2021/">今年读过的书</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/01/NFT-Thinking/">NFT 随想</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/01/expression/">Expression</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/01/%E8%AE%B0%E4%B8%80%E4%BB%B6%E5%B0%8F%E4%BA%8B/">记一件小事</a>
+          </li>
+        
+          <li>
+            <a href="/2022/02/28/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

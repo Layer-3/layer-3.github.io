@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>高级计算机网络学习笔记 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="This is for Adcanced Computer Networks learn note Part I Datacnter Networks {part-i-datacnter-networks}1. FartTree {1-dot-farttree}2. DCN-Portland {2-dot-dcn-portland}2.1 Abstract {2-dot-1-abstract}2.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="高级计算机网络学习笔记">
+<meta property="og:url" content="http://example.com/2020/03/18/ad_computer_network/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="This is for Adcanced Computer Networks learn note Part I Datacnter Networks {part-i-datacnter-networks}1. FartTree {1-dot-farttree}2. DCN-Portland {2-dot-dcn-portland}2.1 Abstract {2-dot-1-abstract}2.">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-03-17T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-03-01T01:31:42.188Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Network">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-ad_computer_network" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/03/18/ad_computer_network/" class="article-date">
+  <time class="dt-published" datetime="2020-03-17T16:00:00.000Z" itemprop="datePublished">2020-03-18</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Learn/">Learn</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      高级计算机网络学习笔记
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><em>This is for Adcanced Computer Networks learn note</em></p>
+<h2 id="Part-I-Datacnter-Networks-part-i-datacnter-networks"><a href="#Part-I-Datacnter-Networks-part-i-datacnter-networks" class="headerlink" title="Part I Datacnter Networks {part-i-datacnter-networks}"></a>Part I Datacnter Networks {part-i-datacnter-networks}</h2><h3 id="1-FartTree-1-dot-farttree"><a href="#1-FartTree-1-dot-farttree" class="headerlink" title="1. FartTree {1-dot-farttree}"></a>1. FartTree {1-dot-farttree}</h3><h3 id="2-DCN-Portland-2-dot-dcn-portland"><a href="#2-DCN-Portland-2-dot-dcn-portland" class="headerlink" title="2. DCN-Portland {2-dot-dcn-portland}"></a>2. DCN-Portland {2-dot-dcn-portland}</h3><h4 id="2-1-Abstract-2-dot-1-abstract"><a href="#2-1-Abstract-2-dot-1-abstract" class="headerlink" title="2.1 Abstract {2-dot-1-abstract}"></a>2.1 Abstract {2-dot-1-abstract}</h4><h4 id="2-2-Design-2-dot-2-design"><a href="#2-2-Design-2-dot-2-design" class="headerlink" title="2.2 Design {2-dot-2-design}"></a>2.2 Design {2-dot-2-design}</h4><h4 id="2-3-Implementation-2-dot-3-implementation"><a href="#2-3-Implementation-2-dot-3-implementation" class="headerlink" title="2.3 Implementation {2-dot-3-implementation}"></a>2.3 Implementation {2-dot-3-implementation}</h4><h4 id="2-4-Tips-2-dot-4-tips"><a href="#2-4-Tips-2-dot-4-tips" class="headerlink" title="2.4 Tips {2-dot-4-tips}"></a>2.4 Tips {2-dot-4-tips}</h4><ul>
+<li>与 FartTree 的连接方式不同，由于 FartTree 的连接方式是固定的，而 Portland 是没有固定的连接哪个交换机的哪个端口的要求的，同样的对编号也没有要求。</li>
+<li>为什么要让 edge 投票选 id，因为冉 Aggre switch 来分配的会可能会冲突；</li>
+<li>每个 switch 都会连接到 fabric manager，其作为 control plane 运行；</li>
+<li>为什么需要 PMAC，因为 FatTree 中的 ip 地址是分配给虚拟机的，如果虚拟机迁移了，就要重新分配 ip，而是 PMAC 就不用进行手动来管理；</li>
+</ul>
+<h3 id="3-Helios：混合的电光交换机-Arch-for-Modular-Data-Centers-3-dot-helios-混合的电光交换机-arch-for-modular-data-centers"><a href="#3-Helios：混合的电光交换机-Arch-for-Modular-Data-Centers-3-dot-helios-混合的电光交换机-arch-for-modular-data-centers" class="headerlink" title="3. Helios：混合的电光交换机 Arch for Modular Data Centers {3-dot-helios-混合的电光交换机-arch-for-modular-data-centers}"></a>3. Helios：混合的电光交换机 Arch for Modular Data Centers {3-dot-helios-混合的电光交换机-arch-for-modular-data-centers}</h3><h4 id="3-1-介绍-3-dot-1-介绍"><a href="#3-1-介绍-3-dot-1-介绍" class="headerlink" title="3.1 介绍 {3-dot-1-介绍}"></a>3.1 介绍 {3-dot-1-介绍}</h4><p>什么是 Modular，指的就是数据中心的一个部分，里面是个完整的包含服务器、网络散热器等均已配置的很完善的一个模块数据中心。其实就是将数据中心模块化，将各个小的模块组织在一起就是一个大的数据中心。研究的重点就是怎么为 modular 之间实现好的通信。想法就是将带宽变成资源池，按需进行分配，节省成本。</p>
+<h4 id="3-2-Ciuruit-Switch-3-dot-2-ciuruit-switch"><a href="#3-2-Ciuruit-Switch-3-dot-2-ciuruit-switch" class="headerlink" title="3.2 Ciuruit Switch {3-dot-2-ciuruit-switch}"></a>3.2 Ciuruit Switch {3-dot-2-ciuruit-switch}</h4><p>ppt 里的 circuit switch 和 optical switch 是一个意思。</p>
+<p>作为第 0 层交换：物理层的交换，把 a 端口进来的光通过镜子反射到 b 端口出去。</p>
+<p>波分复用：把多个光信号(比如红,黄,蓝色光)调制在一起传输，再通过解调器输出为多个光信号</p>
+<h4 id="3-3-Simulation-3-dot-3-simulation"><a href="#3-3-Simulation-3-dot-3-simulation" class="headerlink" title="3.3 Simulation {3-dot-3-simulation}"></a>3.3 Simulation {3-dot-3-simulation}</h4><p>p：有 p 个端口连到交换机，c：有 c 个端口连接到光交换机；</p>
+<p>M：所有的 pods 加一起共有 M 个端口连光交换机。</p>
+<h4 id="3-4-Prototype-3-dot-4-prototype"><a href="#3-4-Prototype-3-dot-4-prototype" class="headerlink" title="3.4 Prototype: {3-dot-4-prototype}"></a>3.4 Prototype: {3-dot-4-prototype}</h4><p>把一些物理交换机利用 vlan 虚拟出来多个虚拟交换机用于 pods。一台物理交换机用作核心交换机，每个 pods 有一个端口连接到以太网交换机</p>
+<p>每个光交换机连接到 pod 中的一个端口。</p>
+<p>LAG:为指向某一个 pod 的物理<strong>光路</strong>端口指定一个为集合形成逻辑端口。如果 LAG 里的端口为 0 的话，就说明指向这个 pod 的数据应该走 packet switch。</p>
+<p>通过现有的 traffic Matrix 估计出 Demand Matrix。</p>
+<p>在 Demand Matrix 中，因为光交换的特点，每一行、每一列只能满足一个。</p>
+<p><span class="underline">当 w&#x3D;4 时，即使有个 demand 是 7，但是仍然只能传 4，所以在点亮格子的计算时需要注意。</span></p>
+<h4 id="3-5-总结-3-dot-5-总结"><a href="#3-5-总结-3-dot-5-总结" class="headerlink" title="3.5 总结 {3-dot-5-总结}"></a>3.5 总结 {3-dot-5-总结}</h4><p>Blocking Switch:打通一条路的代价是堵塞所有其他路，光交换机就是，而包交换机不是。</p>
+<p>从 FatTree 开始，其只是一个拓扑结构，没有迁移、容错等问题，到了 Portland 其在资源增多时，需要大量的交换机。通过引入光交换机，Portland 中的大量交换机是为了应对最坏情况，这里通过观察的传输情况，对传输进行按需分配。</p>
+<h3 id="Project-I-project-i"><a href="#Project-I-project-i" class="headerlink" title="Project I {project-i}"></a>Project I {project-i}</h3><p>beacon:ap 往外面发送的关于自身的 ssid 等信息的包；</p>
+<h2 id="Part-II-Protocols-part-ii-protocols"><a href="#Part-II-Protocols-part-ii-protocols" class="headerlink" title="Part II Protocols {part-ii-protocols}"></a>Part II Protocols {part-ii-protocols}</h2><h3 id="1-MPTCP-1-dot-mptcp"><a href="#1-MPTCP-1-dot-mptcp" class="headerlink" title="1. MPTCP {1-dot-mptcp}"></a>1. MPTCP {1-dot-mptcp}</h3><h4 id="1-1-背景-1-dot-1-背景"><a href="#1-1-背景-1-dot-1-背景" class="headerlink" title="1.1 背景 {1-dot-1-背景}"></a>1.1 背景 {1-dot-1-背景}</h4><p>现在是一个路径上连接，希望能建立多条路径，能够和 TCP 公平竞争，应用程序兼容性。</p>
+<p>在 TCP Option 字段定义 MP……指定使用 MPTCP。</p>
+<p>huawei: Turbo Link</p>
+<h4 id="1-2-Congestion-Control-1-dot-2-congestion-control"><a href="#1-2-Congestion-Control-1-dot-2-congestion-control" class="headerlink" title="1.2 Congestion Control {1-dot-2-congestion-control}"></a>1.2 Congestion Control {1-dot-2-congestion-control}</h4><p><code>有拥塞就退让，有空闲就争取</code>。</p>
+<p>TCP 使用的 AMID，慢启动，快撤退；</p>
+<p>对 MPTCP，算法的公示比较复杂，建议查看 ppt。收到 ACK 后，把<code>一些子流</code> 的窗口增大，但是如果丢包，则只把<code>该子流</code>的窗口减半。</p>
+<p>对于 Coupled，不能把其他路径减到 0.至少要留一个 probe，就涨是全局的，但是跌只和自己相关。考虑 RTT 进行泛化之后得到了现在用的算法。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/03/18/ad_computer_network/" data-id="cl07gfq640000gj38caeqdni7" data-title="高级计算机网络学习笔记" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/" rel="tag">Network</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/03/19/2020-03-18/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          问问题是否需要专业
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/03/18/flexible-distributed-optimization-fram/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">与主机上其他任务共享资源的分布式优化框架</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Idea/">Idea</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Learn/">Learn</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Study/">Study</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Computer-Network/" rel="tag">Computer_Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/English/" rel="tag">English</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Infocom2019/" rel="tag">Infocom2019</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KnowledgeGraph/" rel="tag">KnowledgeGraph</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Knowledge-Graph/" rel="tag">Knowledge_Graph</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/" rel="tag">NLP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SDN/" rel="tag">SDN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nothing/" rel="tag">nothing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%83%A1%E5%9B%BE%E9%81%93%E7%90%86/" rel="tag">胡图道理</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Computer-Network/" style="font-size: 10px;">Computer_Network</a> <a href="/tags/English/" style="font-size: 10px;">English</a> <a href="/tags/Infocom2019/" style="font-size: 10px;">Infocom2019</a> <a href="/tags/KnowledgeGraph/" style="font-size: 10px;">KnowledgeGraph</a> <a href="/tags/Knowledge-Graph/" style="font-size: 10px;">Knowledge_Graph</a> <a href="/tags/NLP/" style="font-size: 10px;">NLP</a> <a href="/tags/Network/" style="font-size: 16.67px;">Network</a> <a href="/tags/SDN/" style="font-size: 13.33px;">SDN</a> <a href="/tags/nothing/" style="font-size: 10px;">nothing</a> <a href="/tags/%E8%83%A1%E5%9B%BE%E9%81%93%E7%90%86/" style="font-size: 20px;">胡图道理</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/12/19/readed-books-2021/">今年读过的书</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/01/NFT-Thinking/">NFT 随想</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/01/expression/">Expression</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/01/%E8%AE%B0%E4%B8%80%E4%BB%B6%E5%B0%8F%E4%BA%8B/">记一件小事</a>
+          </li>
+        
+          <li>
+            <a href="/2022/02/28/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

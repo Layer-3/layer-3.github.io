@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>TransE，连接多关系实体 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Point {point}本次学习的是知识表示、知识工程、知识图谱之类的中一篇很重要的论文，TransE: Translating Embeddings for Modeling Multi-relational Data，讲述的是如何对多关系的实体进行连接。直接来讲就是要使得 h+l&#x3D;t。 需要知道的东西 {需要知道的东西}什么是知识图谱，一种定义是“知识图谱是语义网络上的知识库”，也就是个多关">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TransE，连接多关系实体">
+<meta property="og:url" content="http://example.com/2020/04/19/TransE/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Point {point}本次学习的是知识表示、知识工程、知识图谱之类的中一篇很重要的论文，TransE: Translating Embeddings for Modeling Multi-relational Data，讲述的是如何对多关系的实体进行连接。直接来讲就是要使得 h+l&#x3D;t。 需要知道的东西 {需要知道的东西}什么是知识图谱，一种定义是“知识图谱是语义网络上的知识库”，也就是个多关">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-04-18T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-03-01T01:31:42.187Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Knowledge_Graph">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-TransE" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/04/19/TransE/" class="article-date">
+  <time class="dt-published" datetime="2020-04-18T16:00:00.000Z" itemprop="datePublished">2020-04-19</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Study/">Study</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      TransE，连接多关系实体
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="Point-point"><a href="#Point-point" class="headerlink" title="Point {point}"></a>Point {point}</h2><p>本次学习的是知识表示、知识工程、知识图谱之类的中一篇很重要的论文，<a target="_blank" rel="noopener" href="http://papers.nips.cc/paper/5071-translating-embeddings-for-modeling-multi-relational-data.pdf">TransE: Translating Embeddings for Modeling Multi-relational Data</a>，讲述的是如何对多关系的实体进行连接。直接来讲就是要使得 <code>h+l=t</code>。</p>
+<h2 id="需要知道的东西-需要知道的东西"><a href="#需要知道的东西-需要知道的东西" class="headerlink" title="需要知道的东西 {需要知道的东西}"></a>需要知道的东西 {需要知道的东西}</h2><p>什么是知识图谱，一种定义是“知识图谱是语义网络上的知识库”，也就是个多关系图。他的目的就是要表示出实体与实体之间的关系，实体指的是现实世界中的事物比如人、地名、概念、药物、公司等，关系则用来表达不同实体之间的某种联系，比如人-“居住在”-北京、张三和李四是“朋友”、逻辑回归是深度学习的“先导知识”等等。又比如人和人之间的关系可以是“朋友”，也可以是“同事”关系。构建这样的一个知识图谱就获得了一个结构化的知识库，当我们执行搜索的时候，就可以通过关键词提取（”张三”, “李四”, “朋友”）以及知识库上的匹配可以直接获得最终的答案[^fn:1]。</p>
+<p>多关系数据的有向图里面的节点就是<strong>实体Entities</strong>，而边则象征着这样一个<strong>三元组(h, l, t)<strong>，(head, label, tail)，每个边表示的就是在实体head和tail之间有着名为label的关系。我们要做的是要学习出实体与关系之间的</strong>表示</strong>。</p>
+<h2 id="方法-方法"><a href="#方法-方法" class="headerlink" title="方法 {方法}"></a>方法 {方法}</h2><p>文章强调使用了embedding 空间的translation来表示关系，从而得到了很好的效果，那么为什么“翻译”能够表示关系呢？实际上我觉得这里的translation表达的应该是<strong>转移</strong>。也就是说从一个向量转移到另一个向量，而转移的过程就是两个向量的关系，使用null转移向量就可以表示实体之间的等价关系了，所以看起来，用转移是可以表示的。</p>
+<p>那么怎么表示转移呢？数轴中，a+b可以表示a向右移动了b个单位，那么h+l也可表示h移动了l个单位，因此答案呼之欲出，要使得<strong>h+l&#x3D;t</strong>。</p>
+<h2 id="实现-实现"><a href="#实现-实现" class="headerlink" title="实现 {实现}"></a>实现 {实现}</h2><p>给定训练集S，S包含一系列三元组(h,l,t)，其中h,t &amp;isin; E(实体集)，l &amp;isin; L(关系集)，要把实体和关系embed到k维，其中k是一个超参数。本质想法就是要使得(h,l,t)这条关系存在时，尽量使得h+l &amp;asymp; t，而反之则尽量远离。采用基于energy的方法表示这个目标（这个基于energy的方法没有搞懂他的描述目的，但从公式和代码来看，这里的判断标准就是计算距离。）即使用d(h,l,t)，其中d可以是 \(L_1, L_2\) 范数。</p>
+<p>损失函数如下：</p>
+<p>\[<br>\mathcal L &#x3D; \sum_{(h,l,t) \in S} ~ \sum_{(h’,l,t’) \in S’_{(h,l,t)}} [\lambda + d(h+l, t) - d(h’+l,t’)]_+<br>\]</p>
+<p>其中$[x]_+$表示$x$中的正数部分。并且：</p>
+<p>\[<br>S’_{(h,l,t)} &#x3D; \{ (h’,l,t)|h’ \in E \} \cup \{ (h,t,l’) | t’ \in E \}<br>\]</p>
+<p>上式构造不正确的三元组，头部或尾部被随机实体代替（但肯定有一个是属于训练项中的实体）。</p>
+<p>这样通过随机梯度下降进行训练，就能实现有关系的距离近，没关系的距离远。如下：</p>
+<p> ![](figure src&#x3D;”<a target="_blank" rel="noopener" href="https://gitee.com/layer3/pic/raw/master/uPic/20200419230343-screen-shoot.png&quot;">https://gitee.com/layer3/pic/raw/master/uPic/20200419230343-screen-shoot.png&quot;</a>)</p>
+<p>先根据前人[^fn:2]提出的随机过程初始化实体和关系的所有Embed。在算法的每个主要迭代中，实体的嵌入向量首先进行归一化。然后，从训练集中采样一小部分三元组，并将其作为一个batch的训练三元组。然后，对于每个这样的三元组，我们产生一个不正确的三元组。然后通过采用具有恒定学习率的梯度步骤来更新参数。根据算法在验证集中的性能停止更新。</p>
+<h2 id="我的问题-我的问题"><a href="#我的问题-我的问题" class="headerlink" title="我的问题 {我的问题}"></a>我的问题 {我的问题}</h2><p>那么训练出来的结果是什么呢？</p>
+<p>训练出来的结果就是对关系和实体的Embed vector，也就是实体和关系的低维向量，并且满足，如果有(h,l,t)的话，就会有h+l&#x3D;t[^fn:3]。</p>
+<p>$$<br>a^b &#x3D; 3_1<br>$$</p>
+<p>[^fn:1]: 参考自机器之心 <a target="_blank" rel="noopener" href="https://www.jiqizhixin.com/articles/2018-06-20-4">https://www.jiqizhixin.com/articles/2018-06-20-4</a>;<br>[^fn:2]: X. Glorot and Y. Bengio. Understanding the difﬁculty of training deep feedforward neural networks. In Proceedings of the International Conference on Artiﬁcial Intelligence and Statistics (AISTATS)., 2010.<br>[^fn:3]: 感谢ZJU的陈少帮助我解疑答惑。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/04/19/TransE/" data-id="cl07gfq6h0004gj38bxipco1u" data-title="TransE，连接多关系实体" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Knowledge-Graph/" rel="tag">Knowledge_Graph</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/04/22/KGE-survey/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          知识图谱Embedding综述
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/03/22/sdn/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">软件定义网络</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Idea/">Idea</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Learn/">Learn</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Study/">Study</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Computer-Network/" rel="tag">Computer_Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/English/" rel="tag">English</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Infocom2019/" rel="tag">Infocom2019</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KnowledgeGraph/" rel="tag">KnowledgeGraph</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Knowledge-Graph/" rel="tag">Knowledge_Graph</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/" rel="tag">NLP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SDN/" rel="tag">SDN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nothing/" rel="tag">nothing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%83%A1%E5%9B%BE%E9%81%93%E7%90%86/" rel="tag">胡图道理</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Computer-Network/" style="font-size: 10px;">Computer_Network</a> <a href="/tags/English/" style="font-size: 10px;">English</a> <a href="/tags/Infocom2019/" style="font-size: 10px;">Infocom2019</a> <a href="/tags/KnowledgeGraph/" style="font-size: 10px;">KnowledgeGraph</a> <a href="/tags/Knowledge-Graph/" style="font-size: 10px;">Knowledge_Graph</a> <a href="/tags/NLP/" style="font-size: 10px;">NLP</a> <a href="/tags/Network/" style="font-size: 16.67px;">Network</a> <a href="/tags/SDN/" style="font-size: 13.33px;">SDN</a> <a href="/tags/nothing/" style="font-size: 10px;">nothing</a> <a href="/tags/%E8%83%A1%E5%9B%BE%E9%81%93%E7%90%86/" style="font-size: 20px;">胡图道理</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/12/19/readed-books-2021/">今年读过的书</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/01/NFT-Thinking/">NFT 随想</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/01/expression/">Expression</a>
+          </li>
+        
+          <li>
+            <a href="/2022/03/01/%E8%AE%B0%E4%B8%80%E4%BB%B6%E5%B0%8F%E4%BA%8B/">记一件小事</a>
+          </li>
+        
+          <li>
+            <a href="/2022/02/28/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
