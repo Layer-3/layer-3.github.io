@@ -7,10 +7,12 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" href="/img/favicon.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/tutu.png">
+  <link rel="icon" href="/img/tutu.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   
   <meta name="theme-color" content="#2f4154">
   <meta name="author" content="Anson Tang">
@@ -49,7 +51,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"wtangdev.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"wtangdev.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false},"anchorjs":{"enable":false,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -65,7 +67,7 @@
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
-      <strong>Fluid</strong>
+      <strong>大胡图</strong>
     </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
@@ -157,22 +159,18 @@
 </nav>
 
     <div class="banner" id="banner" parallax=true
-         style="background: url('/img/default.png') no-repeat center center;
+         style="background: url('/img/bigtutu.jpeg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="An elegant Material-Design theme for Hexo">
+            <span class="h2" id="subtitle" title="冰淇淋巧克力彩虹糖旺旺饼干花生米牛肉干，豆奶酸奶橘子水胡萝卜汁～">
               
             </span>
 
             
           </div>
 
-          
-            <div class="scroll-down-bar">
-              <i class="iconfont icon-arrowdown"></i>
-            </div>
           
         </div>
       </div>
@@ -317,6 +315,168 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2022/03/20/unused_in_bert_tokenizer/" target="_self">
+          Bert Tokenizer 使用特殊字符
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/03/20/unused_in_bert_tokenizer/" target="_self">
+          
+          记录一个使用 Bert Tokenizer 时踩得小坑。 Bert 的 [unused*] 不是直接使用的，在创建 tokenizer 的时候需要提前指定需要用到的 token，具体来说，如果想要用到 [usused1]-&gt; [unused99]，那就要按如下先声明 tokenizer ： 12added_tokens &#x3D; [f&quot;[unused&amp;#123;i&amp;#125;&quot;
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-03-20 16:20" pubdate>
+              2022-03-20
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/NLP/">NLP</a>
+            
+              <a href="/tags/KG/">KG</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/03/20/grateful_attitude/" target="_self">
+          感恩的态度
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/03/20/grateful_attitude/" target="_self">
+          
+          前两天在 v 站上看到有人讨论睡眠问题 ，一种“感恩”的生活态度，让我心里一惊。与对只有对自己十分重要的人事物感恩不同，这种对简简单单的稀松平常的事情的感恩更有力量。  我人生有很多不如意，但睡觉方面我一直感恩，小时候在沙发睡着，被爸妈抬回房间都不知道，长大一点，爸妈和朋友在旁边打麻将我照样睡，现在白天喝一天茶，睡前再喝咖啡，开着灯睡（为了防蚊子）也是秒睡，而且不怕打断，比如喝多了水，凌晨上完厕所
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-03-20 15:21" pubdate>
+              2022-03-20
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E8%83%A1%E5%9B%BE%E9%81%93%E7%90%86/">胡图道理</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/03/01/wind-they-dance/" target="_self">
+          风一吹，他们，就跳起了舞
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/03/01/wind-they-dance/" target="_self">
+          
+          
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-03-01 20:04" pubdate>
+              2022-03-01
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E8%83%A1%E5%9B%BE%E9%81%93%E7%90%86/">胡图道理</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/01/15/NFT-Thinking/" target="_self">
+          NFT 随想
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/01/15/NFT-Thinking/" target="_self">
+          
+          这是马克思作业，顺手发出来 2022年1月6日，“从网络空间到元宇宙的展望：我们将何去何从”国际研讨会在线上举行，作为计算机领域的研究生，对『元宇宙』这样一个新奇的概念，有着与生俱来的好奇心，而『元宇宙』其宏大的愿景，以及混杂其中并大行其道的机会投资，又令人望而生畏。在这样的的背景下，数据空间研究中心承办的『元宇宙』研讨会，吴曼青院士、许彬院士等一众大牛的精彩汇报给我打开了思路，让我尝试着深入理解
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-01-15 10:03" pubdate>
+              2022-01-15
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E8%83%A1%E5%9B%BE%E9%81%93%E7%90%86/">胡图道理</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/12/19/readed-books-2021/" target="_self">
           今年读过的书
         </a>
@@ -351,7 +511,93 @@
     </article>
   </div>
 
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/11/24/keep-soft/" target="_self">
+          保持温柔
+        </a>
+      </h1>
 
+      <p class="index-excerpt">
+        <a href="/2021/11/24/keep-soft/" target="_self">
+          
+          在这暖阳下，在这面对蓝天丝毫不闪躲的浪漫星球下，温柔跟宇宙一样，坚不可摧。
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-11-24 22:49" pubdate>
+              2021-11-24
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E8%83%A1%E5%9B%BE%E9%81%93%E7%90%86/">胡图道理</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/11/11/soloris/" target="_self">
+          soloris
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/11/11/soloris/" target="_self">
+          
+          Skip to main contentPostsPublishedUpdate   恋人和诗人对爱的力量怀有永恒的信念，认为它比死亡还要持久，但那句千百年来一直缠着我们不放的“生命虽尽，爱犹未尽”，实际上不过是一句谎言。这句谎言只是徒劳无益，并非荒唐可笑。——索拉里斯星  早早计划看完后要写点文字记录一下，脑袋实在很乱，无从下手。不如先留下记录以敦促自己吧 题外话。经常会听到有人说因为精神贫瘠所
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-11-11 19:48" pubdate>
+              2021-11-11
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E8%83%A1%E5%9B%BE%E9%81%93%E7%90%86/">胡图道理</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/#board">2</a><a class="page-number" href="/page/3/#board">3</a><a class="extend next" rel="next" href="/page/2/#board"><i class="iconfont icon-arrowright"></i></a>
+    </span>
+  </nav>
 
 
 
@@ -397,7 +643,7 @@
 
   <footer class="text-center mt-5 py-3">
   <div class="footer-content">
-     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+     Author: Anson Tang, Engine: <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>, Theme: <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>. 
   </div>
   
 

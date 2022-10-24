@@ -1,0 +1,569 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/tutu.png">
+  <link rel="icon" href="/img/tutu.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="tang">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Table of Contents   1. 介绍 1.1 分布式优化 1.2 什么是次梯度 subgrdient 1.3 符号规定：   2. 模型与算法 2.1 问题模型 2.2 算法   3. 收敛结果         1. 介绍 {1-dot-介绍}题目名为：A Flexible Distributed Optimization Framework for Service of Co">
+<meta property="og:type" content="article">
+<meta property="og:title" content="与主机上其他任务共享资源的分布式优化框架">
+<meta property="og:url" content="https://wtangdev.github.io/2020/03/18/flexible-distributed-optimization-fram/index.html">
+<meta property="og:site_name" content="大胡图">
+<meta property="og:description" content="Table of Contents   1. 介绍 1.1 分布式优化 1.2 什么是次梯度 subgrdient 1.3 符号规定：   2. 模型与算法 2.1 问题模型 2.2 算法   3. 收敛结果         1. 介绍 {1-dot-介绍}题目名为：A Flexible Distributed Optimization Framework for Service of Co">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-03-17T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-01-07T03:48:12.000Z">
+<meta property="article:author" content="Anson Tang">
+<meta property="article:tag" content="Infocom2019">
+<meta property="article:tag" content="Computer_Network">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  <title>与主机上其他任务共享资源的分布式优化框架 - 大胡图</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"wtangdev.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false},"anchorjs":{"enable":false,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>大胡图</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="与主机上其他任务共享资源的分布式优化框架">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-03-18 00:00" pubdate>
+        2020年3月18日 凌晨
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.6k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      30 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">与主机上其他任务共享资源的分布式优化框架</h1>
+            
+            <div class="markdown-body">
+              <div class="ox-hugo-toc toc">
+<div></div>
+
+<div class="heading">Table of Contents</div>
+
+<ul>
+<li><a href="#1-dot-%E4%BB%8B%E7%BB%8D">1. 介绍</a><ul>
+<li><a href="#1-dot-1-%E5%88%86%E5%B8%83%E5%BC%8F%E4%BC%98%E5%8C%96">1.1 分布式优化</a></li>
+<li><a href="#1-dot-2-%E4%BB%80%E4%B9%88%E6%98%AF%E6%AC%A1%E6%A2%AF%E5%BA%A6-subgrdient">1.2 什么是次梯度 <strong>subgrdient</strong></a></li>
+<li><a href="#1-dot-3-%E7%AC%A6%E5%8F%B7%E8%A7%84%E5%AE%9A">1.3 符号规定：</a></li>
+</ul>
+</li>
+<li><a href="#2-dot-%E6%A8%A1%E5%9E%8B%E4%B8%8E%E7%AE%97%E6%B3%95">2. 模型与算法</a><ul>
+<li><a href="#2-dot-1-%E9%97%AE%E9%A2%98%E6%A8%A1%E5%9E%8B">2.1 问题模型</a></li>
+<li><a href="#2-dot-2-%E7%AE%97%E6%B3%95">2.2 算法</a></li>
+</ul>
+</li>
+<li><a href="#3-dot-%E6%94%B6%E6%95%9B%E7%BB%93%E6%9E%9C">3. 收敛结果</a><ul>
+<li><a href="#"></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<!--endtoc-->
+
+
+<h2 id="1-介绍-1-dot-介绍"><a href="#1-介绍-1-dot-介绍" class="headerlink" title="1. 介绍 {1-dot-介绍}"></a>1. 介绍 {1-dot-介绍}</h2><p>题目名为：A Flexible Distributed Optimization Framework for Service of Concurrent Tasks in<br>Processing Networks</p>
+<h3 id="1-1-分布式优化-1-dot-1-分布式优化"><a href="#1-1-分布式优化-1-dot-1-分布式优化" class="headerlink" title="1.1 分布式优化 {1-dot-1-分布式优化}"></a>1.1 分布式优化 {1-dot-1-分布式优化}</h3><p>让一群没有服务器指挥的节点，在仅和邻居通讯（类似于 P2P）的情况下达到整体最优解。需要分布式优化的原因自然是因为 CS 架构的优化模型存在缺点，比如单点故障等原因，参考知乎<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/59260302">刘家耿的回答</a>，给出一个简单的形式化的表达式：<br>\[<br>  \min_{x_i,\cdots,x_n} \sum_{i&#x3D;1}^n f_i(x_i)<br>\]</p>
+<p>上面的公示与常规的优化公示相对应，CS 架构的的优化公示中的 x 是全局统一的，存储在中心 server 上，而分布式优化的 x 则存储在每一个 client 上，这里再借用下上面的回答中的一个流程进一步的阐述分布式优化：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><pre><code class="hljs english">for each node i, simultaneously<br>*repeat*<br>    do gradient updates with own data;<br>    regularly exchange some information with neighbors;<br>    combine information according to some policy;<br>*until* reach consensus and optimaticaly<br></code></pre></td></tr></table></figure>
+
+<p>文章里描述的是，可以为机器学习和信号处理提供使用内部网络连接的处理通过间歇性通信来完成全局最优目标的方法。目前的很多分布式化算法假设所有的处理器都存储了相关数据，但实际上是很多全局最优任务是运行在共享资源的主机上的，所以需要提出一种能够灵活的和其他任务共享<strong>资源</strong>的分布式优化算法。</p>
+<p>Here is a summary of classic and novel <strong>Distributed Optimization</strong></p>
+<blockquote>
+<p>One of the pioneering works on distributed optimization was Tsitsiklis et al.’s<br>work [22]. Since then, several types of methods have been proposed in this area,<br>such as distributed subgradient descent (DSD) [8], [14], distributed dual<br>averaging [4], [21], Alternating Direction Method of Multipliers (ADMM) [9],<br>[18], Nesterov’s method [15], [17] and second-order algorithm [10], [23], with<br>different performances and restrictions. Among these types, DSD is the most<br>important algorithm because it is easily implemented in a distributed way (ADMM<br>needs sequential variable updates and second order methods need costly<br>distributed Hessian calculation), and the basis of many further developed<br>algorithms. For example, by adding history gradient information to DSD, the<br>methods in [13] and [16] can achieve a linear convergence rate for the sum of<br>strongly convex and smooth functions with a constant stepsize. Nesterov’s method<br>can also be considered as a variant of the gradient method. So in this paper, we<br>will focus on gradient-based algorithms.</p>
+</blockquote>
+<p>文章提出一套灵活的分布式次梯度(subgradient)算法，允许处理器通过基于概率地在多个正在进行的任务之间切换，从而同时处理多个正在进行的任务。</p>
+<h3 id="1-2-什么是次梯度-subgrdient-1-dot-2-什么是次梯度-subgrdient"><a href="#1-2-什么是次梯度-subgrdient-1-dot-2-什么是次梯度-subgrdient" class="headerlink" title="1.2 什么是次梯度 subgrdient {1-dot-2-什么是次梯度-subgrdient}"></a>1.2 什么是次梯度 <strong>subgrdient</strong> {1-dot-2-什么是次梯度-subgrdient}</h3><blockquote>
+<p>当函数不可导时，无法通过常规的方法求梯度，也就无法使用梯度下降发来进行实现优化算法，因此针对存在不可导（不光滑）的函数提出其次梯度的概念，其标准定义为：</p>
+<p>g 是函数 f 在 x 点的次梯度，当<br>\[<br>    f(y) \geq f(x) + g^T(y-x), \forall y<br>\]</p>
+<p>上面的 g 是一个可能的次梯度，函数在某一点的次梯度是一个集合被记为&amp;part; f(x)，对于一个凸函数而言，其 &amp;part; f(x) 非空。所以可以使用类似于经典梯度下降的方法使用次梯度对不可导函数进行优化。</p>
+</blockquote>
+<h3 id="1-3-符号规定：-1-dot-3-符号规定"><a href="#1-3-符号规定：-1-dot-3-符号规定" class="headerlink" title="1.3 符号规定： {1-dot-3-符号规定}"></a>1.3 符号规定： {1-dot-3-符号规定}</h3><table>
+<thead>
+<tr>
+<th>符号</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>\(n\)</td>
+<td><strong>number</strong> of processors</td>
+</tr>
+<tr>
+<td>\(x_i^k, y_i^k\)</td>
+<td><strong>value</strong> of Processor i in iteration k</td>
+</tr>
+<tr>
+<td>\(a_{ij}^k\)</td>
+<td><strong>weight</strong> of processor i put on value sent from j</td>
+</tr>
+<tr>
+<td>\(\partial f(x)\)</td>
+<td><strong>set</strong> of <strong>subgradient</strong> of function at x</td>
+</tr>
+<tr>
+<td>\(\nabla f(x)\)</td>
+<td><strong>gradient</strong> of f at x</td>
+</tr>
+<tr>
+<td>\(\Vert \cdot \Vert_p\)</td>
+<td>\(l_p - norm\) for vectors</td>
+</tr>
+<tr>
+<td>\(\pi \{x\}\)</td>
+<td>\(\pi \{x\} &#x3D; \arg \min \limits_{y \in \chi} \Vert y-x \Vert_2^2\)</td>
+</tr>
+</tbody></table>
+<h2 id="2-模型与算法-2-dot-模型与算法"><a href="#2-模型与算法-2-dot-模型与算法" class="headerlink" title="2. 模型与算法 {2-dot-模型与算法}"></a>2. 模型与算法 {2-dot-模型与算法}</h2><h3 id="2-1-问题模型-2-dot-1-问题模型"><a href="#2-1-问题模型-2-dot-1-问题模型" class="headerlink" title="2.1 问题模型 {2-dot-1-问题模型}"></a>2.1 问题模型 {2-dot-1-问题模型}</h3><p>考虑优化的问题与上面提到的分布式优化问题相似，这里再抄写一遍：</p>
+<p>\[<br>    \min_\limits{m \in \chi} f(x) &#x3D; \frac{1}{n} \sum_{i&#x3D;1}^n f_i(x)<br>\]</p>
+<p>其中 \(f_i(x)\) 对在 \(\chi\) 上的所以 i 都是凸的。网络是一个静态的无向图 \(G &#x3D; (V,<br>\xi)\) ，每个处理器 \(process_i\) 仅能访问自己本地函数 \(f_i\) 并计算起次梯度，同时<br>\(Process_i\) 可以与邻居通信自己的值，邻居被记为 \(N(i)\) 。</p>
+<p>计算次梯度需要的花费记为 1，在 1 条链路上两个处理器的产生的通信开销记为 \(\tau\)</p>
+<h3 id="2-2-算法-2-dot-2-算法"><a href="#2-2-算法-2-dot-2-算法" class="headerlink" title="2.2 算法 {2-dot-2-算法}"></a>2.2 算法 {2-dot-2-算法}</h3><p>对于一个有监督的分布式学习可以将每个处理器上的优化问题刻画为这个函数：<br>\(f_i(\theta) &#x3D; l (h(x_i; \theta), y_i)\) ，其中 h 是预测函数，l 是损失函数， \(x_i,<br>y_i\) 是处理器 i 本地存储的数据集中的数据， &amp;theta; 是希望全局优化的参数，下面给出三个假设：</p>
+<ul>
+<li>\(f_i(x)\) 的次梯度是有界的；字面意思；</li>
+<li>\(f_i(x)\) 是 l 光滑的，(<em>Lipschitz smooth 利普希茨连续用来描述函数的平滑程度的，强调的是函数的梯度不会太突兀 L 是光滑程度，具体来说就是 x,y 两点的梯度差&lt;&#x3D; L|x-y|.</em>)</li>
+<li>\(f_i(x)\) 是 &amp;mu; -strongly convex。</li>
+</ul>
+<p>分布式优化的目标是用做少的通信开销使得每个处理器上的 \(x_i^k\) 收敛到(1)式的最优解。这里的一个重要想法就是能否一次今更新所有处理器的一个子集上的值，该子集外的处理器做其他任务并保持子集的值不变，能否也可以达到全局优化的目标。文章介绍了一个基于概率的部分更新的次梯度算法(PUSD)的算法如下：</p>
+<p>![](figure src&#x3D;”&#x2F;ox-hugo&#x2F;2020-03-18_11-42-07_screen-shoot.png” class&#x3D;”foo” width&#x3D;”500”)</p>
+<p>其第 6-7 行是与其他主机交换信息的过程，第 8-14 行是根据概率选择是否计算次梯度以实现全局优化。</p>
+<p>上面算法使用了概率划分的方法，实际上也有一些其他的硬划分模式，比如为不同的任务分配部分处理器数，但是对于有些时候数据因为隐私或者技术的原因不方便与其他处理器共享。上面的算法能够很好的估计出全局最优情况，但是在网络处理器上使用硬划分就很难做到（_这里留个问题，不是很理解为什么不能硬划分很难做到全局优化_）。</p>
+<h2 id="3-收敛结果-3-dot-收敛结果"><a href="#3-收敛结果-3-dot-收敛结果" class="headerlink" title="3. 收敛结果 {3-dot-收敛结果}"></a>3. 收敛结果 {3-dot-收敛结果}</h2><h3 id=""><a href="#" class="headerlink" title="{}"></a>{}</h3>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Study/">Study</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Infocom2019/">Infocom2019</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Computer-Network/">Computer_Network</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/03/18/ad_computer_network/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">高级计算机网络学习笔记</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"9JQuoPxw8768AanQMu0csueM-9Nh9j0Va","appKey":"yp4dtoHivbtUmPU4sNN7lamo","path":"window.location.pathname","placeholder":"风一吹，他们，都跳起了舞","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":true,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          Fluid.plugins.initFancyBox('#valine .vcontent img:not(.vemoji)');
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     Author: Anson Tang, Engine: <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>, Theme: <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>. 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
