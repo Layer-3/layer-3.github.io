@@ -1,0 +1,478 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/tutu.png">
+  <link rel="icon" href="/img/tutu.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Anson Tang">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="这是马克思作业，顺手发出来 2022年1月6日，“从网络空间到元宇宙的展望：我们将何去何从”国际研讨会在线上举行，作为计算机领域的研究生，对『元宇宙』这样一个新奇的概念，有着与生俱来的好奇心，而『元宇宙』其宏大的愿景，以及混杂其中并大行其道的机会投资，又令人望而生畏。在这样的的背景下，数据空间研究中心承办的『元宇宙』研讨会，吴曼青院士、许彬院士等一众大牛的精彩汇报给我打开了思路，让我尝试着深入理解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NFT 随想">
+<meta property="og:url" content="https://wtangdev.github.io/2022/01/15/NFT-Thinking/index.html">
+<meta property="og:site_name" content="大胡图">
+<meta property="og:description" content="这是马克思作业，顺手发出来 2022年1月6日，“从网络空间到元宇宙的展望：我们将何去何从”国际研讨会在线上举行，作为计算机领域的研究生，对『元宇宙』这样一个新奇的概念，有着与生俱来的好奇心，而『元宇宙』其宏大的愿景，以及混杂其中并大行其道的机会投资，又令人望而生畏。在这样的的背景下，数据空间研究中心承办的『元宇宙』研讨会，吴曼青院士、许彬院士等一众大牛的精彩汇报给我打开了思路，让我尝试着深入理解">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-01-15T02:03:30.000Z">
+<meta property="article:modified_time" content="2022-03-01T03:05:02.000Z">
+<meta property="article:author" content="Anson Tang">
+<meta property="article:tag" content="胡图道理">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  <title>NFT 随想 - 大胡图</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"wtangdev.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false},"anchorjs":{"enable":false,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>大胡图</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="NFT 随想">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-01-15 10:03" pubdate>
+        2022年1月15日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.3k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      12 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">NFT 随想</h1>
+            
+            <div class="markdown-body">
+              <p><em>这是马克思作业，顺手发出来</em></p>
+<p>2022年1月6日，“从网络空间到元宇宙的展望：我们将何去何从”国际研讨会在线上举行，作为计算机领域的研究生，对『元宇宙』这样一个新奇的概念，有着与生俱来的好奇心，而『元宇宙』其宏大的愿景，以及混杂其中并大行其道的机会投资，又令人望而生畏。在这样的的背景下，数据空间研究中心承办的『元宇宙』研讨会，吴曼青院士、许彬院士等一众大牛的精彩汇报给我打开了思路，让我尝试着深入理解了一下『元宇宙』。</p>
+<p>我想简要记录一下我在了解『元宇宙』概念中当前最为热门的事物：NFT。NFT是非同质化代币的简写，目前最广为人知的NFT是由Opensea平台提供的NFT数字艺术品。数字艺术品是个很有意思的名字，通常我们想到艺术品想到的是其具有的收藏价值，那些价值连城的艺术品通常都是世界上独一份的珍贵。数字艺术品的数字性意味着其可以随意拷贝，轻松篡改，那么其唯一性似乎几乎是无法保证，那么如何能够作为艺术品来收藏呢。</p>
+<p>我们要思考『元宇宙』出现之前，最热门的概念是区块链。区块链之所以能热门是因为其展现了一个极为远大的愿景，其希望彻底去掉中心化机构，而通过一个基于共识的机制让位于链上的一切都是公开的，人人可见的，绝对可信的。NFT正是基于这样的设计，当一个艺术品被上传到Opensea上时，会自动链上区块链（如ETH，目前公信力较强的链），其在链上会记录这个艺术品的拥有人的地址，那么就认为这个艺术品是属于这个地址的。那么问题来了，只是在链上记录了拥有人地址，怎么保证这个艺术品的唯一性呢？实质上，在我查阅资料后，我认为NFT并不打算限制NFT的唯一性，其认为，作为一件数字艺术品，他在现有的版权体系下，依然可以被任意使用，只是这件艺术品本身，他在一个去中心化的社区中，被公认为是属于在区块链中记录下的地址的，但是任何人都可以使用这件艺术品。那么其收藏价值依然是存在的，因为其是唯一归属的，这件作品被应用的更多可能反而意味着这件作品的价值之高。在这个区块链上，交易只需要在链上账本的地址记录中新增一条即可，因此其是可以被轻松交易的，并且交易成功之后，共识就会转给购买者。</p>
+<p>从技术上看来，这样的概念非常令人神往，他让数字艺术品的使用和归属分离，去中心化的思想，基于社区共识的方案让『假』艺术品无处遁形，然而这真的完美吗？仿制品在艺术品交易中是个极难被解决的问题，数字艺术品的仿制步骤相较实体艺术品更为简单，幸运的是，在NFT中全然不怕仿制品，但如果用户不进行仿制，而是再其基础上二次创作呢，或者说只是修改了几个像素点，其本质上是两件不同的艺术品，但表面上看起来是相近的。那么用户将这个二次创作的艺术品上传到链上，也可以被交易，也是被共识认为是合理的、具有价值的艺术品，但这是不是没有保护好原作者的版权呢？这样的问题其实并不是信口开河，在Opensea中会对用户做明显的区分，主要分为两种，分别是认证用户和非认证用户。大多数时候认证用户上传的作品被认为是原创的，具有极高收藏价值的。这样看来，似乎通过『认证』这个机制可以在一定程度上解决这个问题。但是，Opensea作为一个中心机构，依赖这样一个中心机构是不是与区块链的完全去中心化愿景背道而驰了呢？</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E8%83%A1%E5%9B%BE%E9%81%93%E7%90%86/">胡图道理</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/03/01/wind-they-dance/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">风一吹，他们，就跳起了舞</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/12/19/readed-books-2021/">
+                        <span class="hidden-mobile">今年读过的书</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"9JQuoPxw8768AanQMu0csueM-9Nh9j0Va","appKey":"yp4dtoHivbtUmPU4sNN7lamo","path":"window.location.pathname","placeholder":"风一吹，他们，都跳起了舞","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":true,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          Fluid.plugins.initFancyBox('#valine .vcontent img:not(.vemoji)');
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     Author: Anson Tang, Engine: <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>, Theme: <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>. 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
